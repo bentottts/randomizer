@@ -56,9 +56,8 @@ function initScanner(){
             for(var i of arrayCandidateProp){
                 var arrayField = i.split(":");
                 if(arrayField.length == 2){
-                    var fieldName = arrayField[0];
-                    var fieldValue = arrayField[1];
-                    myCandidateObj[fieldName] = fieldValue;
+                    const fieldName = arrayField[0];
+                    myCandidateObj[fieldName] = arrayField[1];
                 }
                 console.log(myCandidateObj)
             }

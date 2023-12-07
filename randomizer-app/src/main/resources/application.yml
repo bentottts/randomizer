@@ -17,5 +17,7 @@ server:
 app:
   csv:
     header: employeeId,firstName,lastName
-    path: "/Users/ryvndngca/workspace/database/"
+    path: "C:/Users/Public/"
     file-name: candidateList.csv
+  background-image:
+    file-name: "C:/Users/Public/background-image/background-image.gif"

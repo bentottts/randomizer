@@ -31,7 +31,7 @@ function rollClick() {
       var winner = $("#names").text();
       $("#winner").text(winner);
       $("#names").hide();
-      $("#winner").html("<span>And the winner is...<br></span>" + winner);
+      $("#winner").html("<span>Congratulations!!!<br></span>" + winner);
 //      $("#roll").show();
       $("#clear").show();
     }, 4000);

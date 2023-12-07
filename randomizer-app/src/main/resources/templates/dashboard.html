@@ -5,66 +5,98 @@
     <title>Dashboard</title>
 
     <style type="text/css" th:inline="text">>
-* {
-    box-sizing: border-box; }
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
 
-body {
-  background: #1A1E23;
-  font-family: 'Lato', sans-serif;
-  -webkit-font-smoothing: antialiased; }
+    }
 
-nav {
-  position: relative;
-  padding-bottom: 12px; }
-  nav .line {
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    margin: 10px 0 0 0;
-    background: #FF1847; }
-  nav ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex; }
-    nav ul li {
-      margin: 0 40px 0 0;
-      opacity: .4;
-      transition: all 0.4s ease; }
-      nav ul li:hover {
-        opacity: .7; }
-      nav ul li.active {
-        opacity: 1; }
-      nav ul li:last-child {
-        margin-right: 0; }
-      nav ul li a {
-        text-decoration: none;
-        color: #fff;
+    .body-text {
+        display: flex;
+        font-family: "Montserrat", sans-serif;
+        align-items: center;
+        justify-content: center;
+        margin-top: 250px;
+
+    }
+
+    nav {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        min-height: 18vh;
+        font-family: "Montserrat", sans-serif;
+
+    }
+
+    .heading {
+        color: white;
         text-transform: uppercase;
-        display: block;
-        font-weight: 600;
-        letter-spacing: .2em;
-        font-size: 30px; }
+        letter-spacing: 5px;
+        font-size: 20px;
+    }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; }
+    .nav-links {
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+    }
+
+    .nav-links li {
+        list-style: none;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 24px;
+        padding: 14px 16px;
+    }
+
+    .nav-links a:hover:not(.active) {
+        background-color: teal;
+    }
+
+    .nav-links li a.active {
+        background-color: #4caf50;
+    }
+
+    /*body {*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    align-items: center;*/
+    /*    min-height: 100vh;*/
+    /*}*/
+
 
     </style>
 
 </head>
-<body>
+<body th:style="'background-image:url(' + @{/background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
 <nav>
-    <ul>
-        <li class=""><a th:href="@{/}">Dashboard</a></li>
-        <li><a th:href="@{/roll}" target="_blank">Roll</a></li>
-        <li><a th:href="@{/scanQrCode}" target="_blank">QR Scanner</a></li>
+    <div class="heading">
+        <h4>Navigation Bar</h4>
+    </div>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">HOME</a></li>
+        <li><a th:href="@{/roll}" target="_blank">ROLL</a></li>
+        <li><a th:href="@{/scanQrCode}" target="_blank">QR SCANNER</a></li>
     </ul>
-</nav>
 
+</nav>
+<!--<nav>-->
+<!--    <ul style="background-color: dimgray">-->
+<!--        <li><a th:href="@{/}">Dashboard</a></li>-->
+<!--        <li><a th:href="@{/roll}" target="_blank">Roll</a></li>-->
+<!--        <li><a th:href="@{/scanQrCode}" target="_blank">QR Scanner</a></li>-->
+<!--    </ul>-->
+<!--</nav>-->
 
 </body>
 </html>

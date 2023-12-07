@@ -17,7 +17,6 @@ body {
 }
 body .wrapper {
   width: 100%;
-  max-width: 800px;
   position: fixed;
   text-align: center;
   top: 50%;
@@ -27,13 +26,14 @@ body .wrapper {
 body #roll {
   display: inline-block;
   color: white;
-  background-color: #1f2b37;
+  background-color: darkgoldenrod;
   text-decoration: none;
   font-size: 3rem;
-  border: 5px solid white;
+  border: 5px solid gold;
   padding: 0.45em 2em;
   border-radius: 3em;
   transition: 400ms ease-in-out;
+  width: 20%;
 }
 
 body #clear {
@@ -70,6 +70,7 @@ body #roll:hover #clear:hover #remove:hover{
 
 body #names {
   font-size: 7.5rem;
+  width: 100%
 }
 
 body #winner {
