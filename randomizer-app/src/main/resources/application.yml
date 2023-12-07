@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: randomizer-app
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+server:
+  port: 50505
+  servlet:
+    context-path: "/randomizer-app"
+  error:
+    whitelabel:
+      enable: false
+
+app:
+  csv:
+    header: employeeId,firstName,lastName
+    path: "/Users/ryvndngca/workspace/database/"
+    file-name: candidateList.csv

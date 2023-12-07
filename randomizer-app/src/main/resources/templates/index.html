@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>2023 Christmas Party Raffle</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!--  <script type="text/javascript" th:src="@{/js/script.js}"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script th:inline="javascript">
+$("document").ready(function() {
+rollClick();
+clearForm();
+removeForm();
+
+$("#remove").hide();
+$("#clear").hide();
+
+});
+
+var myCandidateObj;
+
+/*<![CDATA[*/
+var entrants = /*[[${candidates}]]*/ [];
+/*]]>*/
+
+
+function randomName() {
+  var rand = Math.floor(Math.random() * entrants.length);
+  var name = entrants[rand];
+  myCandidateObj = name;
+  $("#names").text(name.firstName.toUpperCase()+" "+name.lastName.toUpperCase());
+}
+
+function rollClick() {
+  $("#roll").on("click", function(e) {
+    $(this).hide();
+    $("#clear").hide();
+    $("#remove").hide();
+    $("#names").show();
+
+    setDeceleratingTimeout(
+      function() {
+        randomName();
+      },
+      10,
+      40
+    );
+
+    setTimeout(function() {
+      var winner = $("#names").text();
+      $("#winner").text(winner);
+      $("#names").hide();
+      $("#winner").html("<span>And the winner is...<br></span>" + winner);
+//      $("#roll").show();
+      $("#clear").show();
+      $("#remove").show();
+
+    }, 4000);
+
+    e.preventDefault();
+  });
+}
+
+function clearForm(){
+  $("#clear").on("click", function(e) {
+    $(this).hide();
+        $("#names").hide();
+        $("#remove").hide();
+        $("#winner").text("");
+        $("#roll").show();
+
+     Swal.fire({
+          icon: "success",
+          title: "Cleared!",
+          showConfirmButton: false,
+          timer: 1000
+        });
+    });
+}
+
+function removeForm(){
+  $("#remove").on("click", function(e) {
+    $(this).hide();
+        $("#names").hide();
+        $("#winner").text("");
+        $("#roll").show();
+        $("#clear").hide();
+
+        removeCandidate(myCandidateObj);
+    });
+}
+
+function setDeceleratingTimeout(callback, factor, times) {
+  var internalCallback = (function(t, counter) {
+    return function() {
+      if (--t > 0) {
+        window.setTimeout(internalCallback, ++counter * factor);
+        callback();
+      }
+    };
+  })(times, 0);
+
+  window.setTimeout(internalCallback, factor);
+}
+
+
+function removeCandidate(myCandidateObj){
+    fetch('/randomizer-app/v1/api/remove-candidate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add other headers if needed
+        },
+        body: JSON.stringify(myCandidateObj)
+    })
+    .then(response => response.json())
+    .then(myCandidateObj => {
+        console.log('Success:', myCandidateObj);
+        Swal.fire({
+          icon: "success",
+          title: "Removed from the master list!",
+          showConfirmButton: false,
+          timer: 2000
+        });
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        // Handle errors
+        Swal.fire({
+          icon: "warning",
+          title: "Something went wrong! Try again.",
+          showConfirmButton: false,
+          timer: 1500
+        });
+    });
+
+}
+
+    </script>
+</head>
+<body>
+
+<h1>2023 Christmas Party Raffle</h1>
+
+Ï
+<div class="wrapper">
+    <a href="#" id="roll">Roll</a>
+    <div id="names"></div>
+    <div id="winner"></div>
+    <a href="#" id="clear">Clear</a>
+    <div></div>
+    <a href="#" id="remove">Remove</a>
+</div>
+
+</body>
+</html>

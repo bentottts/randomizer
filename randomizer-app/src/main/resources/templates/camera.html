@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Capture Example</title>
+</head>
+<body>
+<video id="video" width="640" height="480" autoplay></video>
+<button id="captureButton">Capture</button>
+<canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('captureButton');
+        const constraints = { video: true };
+
+        // Get user media (camera)
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error('Error accessing camera:', error);
+            });
+
+        // Capture button click event
+        captureButton.addEventListener('click', function () {
+            // Draw the current video frame onto the canvas
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas content to a data URL representing the captured image
+            const imageDataUrl = canvas.toDataURL('image/png');
+
+            // Log or use the imageDataUrl as needed
+            console.log('Captured Image Data URL:', imageDataUrl);
+
+            // Alternatively, you can save or send the image data to a server using AJAX or other methods.
+        });
+    });
+</script>
+</body>
+</html>

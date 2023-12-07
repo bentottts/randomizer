@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #253241;
+  color: white;
+  font-family: "Homestead-Inline";
+}
+body .wrapper {
+  width: 100%;
+  max-width: 800px;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body #roll {
+  display: inline-block;
+  color: white;
+  background-color: #1f2b37;
+  text-decoration: none;
+  font-size: 3rem;
+  border: 5px solid white;
+  padding: 0.45em 2em;
+  border-radius: 3em;
+  transition: 400ms ease-in-out;
+}
+
+body #clear {
+  display: inline-block;
+  color: white;
+  background-color: #372f1f;
+  text-decoration: none;
+  font-size: 3rem;
+  border: 5px solid white;
+  padding: 0.45em 2em;
+  border-radius: 3em;
+  transition: 400ms ease-in-out;
+  margin-top: 1em;
+}
+
+body #remove {
+  display: inline-block;
+  color: white;
+  background-color: #870d04;
+  text-decoration: none;
+  font-size: 3rem;
+  border: 5px solid white;
+  padding: 0.45em 2em;
+  border-radius: 3em;
+  transition: 400ms ease-in-out;
+  margin-top: 1em;
+}
+
+body #roll:hover {
+  background-color: white;
+  color: #253241;
+  font-family: "Homestead";
+}
+body #names {
+  font-size: 7.5rem;
+}
+body #winner {
+  font-size: 8.5rem;
+}
+body #winner span {
+  font-size: 4.35rem;
+  letter-spacing: 4px;
+  font-family: "Homestead";
+}
+
+

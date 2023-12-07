@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Scanner</title>
+    <style type="text/css" th:inline="text">
+        #scanner-container h1{
+            width: 100%;
+            max-width: 480px;
+            margin: auto;
+        }
+
+    </style>
+    <script th:src="@{/js/html5-qrcode.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/qr.js}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+</head>
+<body>
+
+
+
+<div id="scanner-container">
+    <h1>QR Code Scanner</h1>
+    <div id="qr-reader" style="width:500px"></div>
+    <div id="qr-reader-results"></div>
+</div>
+
+
+
+</body>
+</html>
