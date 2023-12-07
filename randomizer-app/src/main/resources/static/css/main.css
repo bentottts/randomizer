@@ -55,19 +55,28 @@ body #remove {
   margin-top: 1em;
 }
 
-body #roll:hover {
+body #roll:hover #clear:hover #remove:hover{
   background-color: white;
   color: #253241;
   font-family: "Homestead";
 }
+
 body #names {
   font-size: 7.5rem;
 }
+
 body #winner {
   font-size: 8.5rem;
 }
+
 body #winner span {
   font-size: 4.35rem;
+  letter-spacing: 4px;
+  font-family: "Homestead";
+}
+
+#head-title{
+  font-size: 4rem;
   letter-spacing: 4px;
   font-family: "Homestead";
 }

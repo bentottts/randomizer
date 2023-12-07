@@ -38,7 +38,7 @@ public class CSVUtil {
 
 
     public void saveCandidateToCSV(Candidate candidate) throws DuplicateCandidateException {
-        List<Candidate> candidates = readCSVFile();
+        List<Candidate> candidates = readCSVFile(true);
 
         //check if candidate exists
         if (isCandidateAlreadyRegistered(candidates, candidate)) {
@@ -49,7 +49,7 @@ public class CSVUtil {
     }
 
     public List<Candidate> getAllCandidatesFromCSV(){
-        List<Candidate> candidates = readCSVFile();
+        List<Candidate> candidates = readCSVFile(false);
         if(!Objects.isNull(candidates)){
             candidates.remove(0);
         }
@@ -85,7 +85,7 @@ public class CSVUtil {
         return candidates.contains(candidate);
     }
 
-    private List<Candidate> readCSVFile() {
+    private List<Candidate> readCSVFile(boolean skipHeader) {
         List<Candidate> candidates = new ArrayList<>();
         try {
             if (!isFileExists(pathBuilder())) {
@@ -96,8 +96,11 @@ public class CSVUtil {
             CSVReader csvReader = new CSVReader(filereader);
             String[] nextRecord;
 
-            // to skip the header
-//            String[] headers = csvReader.readNext();
+            if(skipHeader){
+                //to skip the header
+                String[] headers = csvReader.readNext();
+            }
+
 
             while ((nextRecord = csvReader.readNext()) != null) {
                 candidates.add(Candidate.builder()

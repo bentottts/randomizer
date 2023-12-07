@@ -26,10 +26,6 @@ public class HomeController {
 
     @GetMapping
     public String home(Model model) throws InterruptedException, EmptyRegistryException {
-        // landing page
-
-//        List<String> strs = Arrays.asList("Toppings", "Al's","Tes","El","Em","Al","Ven","Son","Val","kev","Jek","Mar","Gina","Loy","Adam", "Bob", "Chris", "Dave", "Evan", "Fred", "Guy", "Hussai","Toppings", "Al's","Tes","El","Em","Al","Ven","Son","Val","kev","Jek","Mar","Gina","Loy","Adam", "Bob", "Chris", "Dave", "Evan", "Fred", "Guy", "Hussai","Toppings", "Al's","Tes","El","Em","Al","Ven","Son","Val","kev","Jek","Mar","Gina","Loy","Adam", "Bob", "Chris", "Dave", "Evan", "Fred", "Guy", "Hussai","Toppings", "Al's","Tes","El","Em","Al","Ven","Son","Val","kev","Jek","Mar","Gina","Loy","Adam", "Bob", "Chris", "Dave", "Evan", "Fred", "Guy", "Hussai");
-
         model.addAttribute("candidates", candidateService.getCandidates());
         return "index";
 
