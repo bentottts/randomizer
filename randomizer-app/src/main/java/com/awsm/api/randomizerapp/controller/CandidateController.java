@@ -26,13 +26,17 @@ public class CandidateController {
     }
 
     @PostMapping("/save-candidate")
-    ResponseEntity<Object> saveCandidate(@RequestBody CandidateRequest candidateRequest) throws DuplicateCandidateException {
+    ResponseEntity<Object> saveCandidate(@RequestBody CandidateRequest candidateRequest){
 
         // save candidate
-        candidateService.saveCandidate(candidateRequest);
-        log.info(candidateRequest.toString());
+        try {
+            candidateService.saveCandidate(candidateRequest);
+            log.info(candidateRequest.toString());
 
-        return new ResponseEntity<>(candidateRequest, HttpStatus.CREATED);
+            return new ResponseEntity<>(candidateRequest, HttpStatus.CREATED);
+        }catch (DuplicateCandidateException e){
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/remove-candidate")

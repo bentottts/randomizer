@@ -41,6 +41,7 @@ public class CSVUtil {
         List<Candidate> candidates = readCSVFile(true);
 
         //check if candidate exists
+
         if (isCandidateAlreadyRegistered(candidates, candidate)) {
             throw new DuplicateCandidateException("The candidate is already registered!");
         }

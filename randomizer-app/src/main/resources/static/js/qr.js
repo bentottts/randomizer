@@ -8,9 +8,13 @@ function docReady(fn) {
     }
 }
 
+var html5QrcodeScanner;
+
 docReady(function() {
     initScanner();
 });
+
+
 
 function showSweetAlert(myCandidateObj) {
    Swal.fire({
@@ -31,15 +35,15 @@ function initScanner(){
     var resultContainer = document.getElementById('qr-reader-results');
     var lastResult, countResults = 0;
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
+    html5QrcodeScanner = new Html5QrcodeScanner(
         "qr-reader", { fps: 10, qrbox: 250 });
 
     function onScanSuccess(decodedText, decodedResult) {
-        if (decodedText !== lastResult) {
-            ++countResults;
-            lastResult = decodedText;
-            console.log(`Scan result = ${decodedText}`, decodedResult);
 
+        html5QrcodeScanner.pause();
+        if (decodedText !== lastResult) {
+            console.log(`Scan result = ${decodedText}`, decodedResult);
+            lastResult = decodedText;
             // check if decoded text is null or empty
             if(decodedText === null || decodedText === undefined){
                 throwError("The QR Code is invalid!")
@@ -62,14 +66,16 @@ function initScanner(){
                 }
                 console.log(myCandidateObj)
             }
+            showSweetAlert(myCandidateObj);
            }catch(error){
                 throwError("Invalid QR Code, try generating a new one.");
            }
-            showSweetAlert(myCandidateObj);
-
-            // Optional: To close the QR code scannign after the result is found
-                  //html5QrcodeScanner.clear();
-                  //html5QrcodeScanner.stop();
+        }else{
+            throwWaring("Duplicate request!");
+            setTimeout(() => {
+              // Resume the scanner after the pause
+              html5QrcodeScanner.resume();
+            }, 2000);
         }
     }
 
@@ -93,14 +99,24 @@ function saveCandidate(myCandidateObj){
         body: JSON.stringify(myCandidateObj)
     })
     .then(response => response.json())
-    .then(myCandidateObj => {
-        console.log('Success:', myCandidateObj);
-        Swal.fire({
-          icon: "success",
-          title: "Registration done!",
-          showConfirmButton: false,
-          timer: 1500
-        });
+    .then(responseObj => {
+        console.log('Saving Response:', responseObj);
+        if(responseObj.hasOwnProperty('message')){
+            Swal.fire({
+              icon: "warning",
+              title: responseObj.message,
+              showConfirmButton: false,
+              timer: 1500
+            });
+        }else{
+            Swal.fire({
+              icon: "success",
+              title: "Registration done!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -113,13 +129,27 @@ function saveCandidate(myCandidateObj){
         });
     });
 
+    setTimeout(() => {
+      // Resume the scanner after the pause
+      html5QrcodeScanner.resume();
+    }, 2000);
 }
 
 
 function throwError(message){
-Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "Something went wrong: "+message
-});
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong: "+message
+    });
+}
+
+function throwWaring(message){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: message,
+      showConfirmButton: false,
+      timer: 1500
+    });
 }
