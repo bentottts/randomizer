@@ -4,9 +4,16 @@
 }
 
 body {
-  background-color: #253241;
-  color: white;
-  font-family: "Homestead-Inline";
+    /* Set background image dynamically using Thymeleaf */
+
+    background: url('../images/bg_1.jpg') no-repeat center center fixed;
+    background-color: #253241;
+    color: #253241;
+    font-family: "Homestead-Inline";
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 body .wrapper {
   width: 100%;
@@ -67,6 +74,7 @@ body #names {
 
 body #winner {
   font-size: 8.5rem;
+  width: 100%
 }
 
 body #winner span {
