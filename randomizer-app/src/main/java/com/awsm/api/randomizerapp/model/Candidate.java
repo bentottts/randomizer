@@ -29,7 +29,7 @@ public class Candidate {
         return Objects.hash(firstName, lastName, employeeId);
     }
 
-    public  String getCandidateName(){
-        return firstName + " " +lastName;
+    public String getCandidateName() {
+        return firstName + " " + lastName;
     }
 }

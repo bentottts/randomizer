@@ -20,4 +20,5 @@ app:
     path: "C:/Users/Public/"
     file-name: candidateList.csv
   background-image:
-    file-name: "C:/Users/Public/background-image/background-image.gif"
+    home-file-name: "C:/Users/Public/background-image/home-background-image.jpg"
+    rolling-file-name: "C:/Users/Public/background-image/rolling-background-image.gif"

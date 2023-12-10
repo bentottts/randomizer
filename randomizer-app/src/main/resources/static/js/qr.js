@@ -8,31 +8,31 @@ function docReady(fn) {
     }
 }
 
-docReady(function() {
+docReady(function () {
     initScanner();
 });
 
 function showSweetAlert(myCandidateObj) {
-   Swal.fire({
-       title: 'Hi ' + myCandidateObj.firstName + ' ' + myCandidateObj.lastName + '!',
-       text: 'Thank you for registering.',
-       icon: 'success',
-       confirmButtonText: 'OK',
-       allowOutsideClick: false
-   }).then((result) =>{
-   if (result.isConfirmed) {
-        // do something on okay
-        saveCandidate(myCandidateObj);
-     }
-   });
+    Swal.fire({
+        title: 'Hi ' + myCandidateObj.firstName + ' ' + myCandidateObj.lastName + '!',
+        text: 'Click ok to proceed.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // do something on okay
+            saveCandidate(myCandidateObj);
+        }
+    });
 }
 
-function initScanner(){
-    var resultContainer = document.getElementById('qr-reader-results');
-    var lastResult, countResults = 0;
+function initScanner() {
+    document.getElementById('qr-reader-results');
+    let lastResult, countResults = 0;
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader", { fps: 10, qrbox: 250 });
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader", {fps: 30, qrbox: 320});
 
     function onScanSuccess(decodedText, decodedResult) {
         if (decodedText !== lastResult) {
@@ -41,34 +41,34 @@ function initScanner(){
             console.log(`Scan result = ${decodedText}`, decodedResult);
 
             // check if decoded text is null or empty
-            if(decodedText === null || decodedText === undefined){
+            if (decodedText === null || decodedText === undefined) {
                 throwError("The QR Code is invalid!")
                 return;
             }
 
             // Initializing the object with dynamic fields using the Object constructor
-            var myCandidateObj = new Object();
+            const myCandidateObj = {};
 
             // spilt the string ny comma
-            var arrayCandidateProp = decodedText.split(",");
+            const arrayCandidateProp = decodedText.split(",");
 
-           try{
-            for(var i of arrayCandidateProp){
-                var arrayField = i.split(":");
-                if(arrayField.length == 2){
-                    const fieldName = arrayField[0];
-                    myCandidateObj[fieldName] = arrayField[1];
+            try {
+                for (var i of arrayCandidateProp) {
+                    var arrayField = i.split(":");
+                    if (arrayField.length == 2) {
+                        const fieldName = arrayField[0];
+                        myCandidateObj[fieldName] = arrayField[1];
+                    }
+                    console.log(myCandidateObj)
                 }
-                console.log(myCandidateObj)
-            }
-           }catch(error){
+            } catch (error) {
                 throwError("Invalid QR Code, try generating a new one.");
-           }
+            }
             showSweetAlert(myCandidateObj);
 
             // Optional: To close the QR code scannign after the result is found
-                  //html5QrcodeScanner.clear();
-                  //html5QrcodeScanner.stop();
+            //html5QrcodeScanner.clear();
+            //html5QrcodeScanner.stop();
         }
     }
 
@@ -81,7 +81,7 @@ function initScanner(){
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 }
 
-function saveCandidate(myCandidateObj){
+function saveCandidate(myCandidateObj) {
 
     fetch('/randomizer-app/v1/api/save-candidate', {
         method: 'POST',
@@ -90,35 +90,46 @@ function saveCandidate(myCandidateObj){
             // Add other headers if needed
         },
         body: JSON.stringify(myCandidateObj)
-    })
-    .then(response => response.json())
-    .then(myCandidateObj => {
-        console.log('Success:', myCandidateObj);
-        Swal.fire({
-          icon: "success",
-          title: "Registration done!",
-          showConfirmButton: false,
-          timer: 1500
-        });
-    })
-    .catch((error) => {
+    }).then(async response => {
+        console.log('Response:', response);
+        if (response.ok) {
+            Swal.fire({
+                icon: "success",
+                title: "Registration success!",
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return response.json()
+        } else {
+            throw new Error(await response.text());
+        }
+    }).catch((error) => {
         console.error('Error:', error);
         // Handle errors
-        Swal.fire({
-          icon: "warning",
-          title: "Something went wrong!",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if ((error instanceof TypeError || error instanceof Error) && error.message.includes('The candidate is already registered!')) {
+            Swal.fire({
+                icon: "error",
+                title: "Error! Duplicate found!",
+                text: "Registration failed.",
+                showConfirmButton: false,
+                timer: 3500
+            });
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Warning! Registration failed! " + error.message,
+                showConfirmButton: false,
+                timer: 3500
+            });
+        }
     });
 
 }
 
-
-function throwError(message){
-Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "Something went wrong: "+message
-});
+function throwError(message) {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong: " + message
+    });
 }

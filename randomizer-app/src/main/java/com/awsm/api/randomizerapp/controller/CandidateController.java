@@ -1,11 +1,9 @@
 package com.awsm.api.randomizerapp.controller;
 
 import com.awsm.api.randomizerapp.exception.DuplicateCandidateException;
-import com.awsm.api.randomizerapp.exception.EmptyRegistryException;
 import com.awsm.api.randomizerapp.model.Candidate;
 import com.awsm.api.randomizerapp.model.request.CandidateRequest;
 import com.awsm.api.randomizerapp.service.CandidateService;
-import com.awsm.api.randomizerapp.service.impl.CandidateServiceImplV02;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

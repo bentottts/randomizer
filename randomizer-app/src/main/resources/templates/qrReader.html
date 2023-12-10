@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>QR Code Scanner</title>
@@ -8,7 +8,7 @@
         body {
             background-color: #253241;
             color: white;
-            font-family: "Homestead-Inline",sans-serif;
+            font-family: "Homestead-Inline", sans-serif;
         }
 
         body .wrapper {
@@ -21,19 +21,15 @@
             transform: translate(-50%, -50%);
         }
 
-        #qr-header-title{
+        #qr-header-title {
             font-size: 3rem;
             letter-spacing: 4px;
-            font-family: "Homestead",sans-serif;
+            font-family: "Homestead", sans-serif;
         }
 
-
     </style>
-    <script th:src="@{/js/html5-qrcode.min.js}" type="text/javascript"></script>
-    <script th:src="@{/js/qr.js}" type="text/javascript"></script>
-    <script th:src="@{/js/sweetalert2.10.js}" type="text/javascript"></script>
 </head>
-<body th:style="'background-image:url(' + @{/background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/home-background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
 <div class="wrapper">
     <p id="qr-header-title">QR Code Scanner</p>
@@ -41,4 +37,9 @@
     <!--        <div id="qr-reader-results"></div>-->
 </div>
 </body>
+<footer>
+    <script th:src="@{/js/html5-qrcode.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/qr.js}" type="text/javascript"></script>
+    <script th:src="@{/js/sweetalert2.10.js}" type="text/javascript"></script>
+</footer>
 </html>

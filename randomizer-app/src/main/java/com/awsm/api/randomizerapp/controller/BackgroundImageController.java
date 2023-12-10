@@ -19,9 +19,15 @@ public class BackgroundImageController {
         this.backgroundImageService = backgroundImageService;
     }
     @ResponseBody
-    @GetMapping(value = "/background-image", produces = MediaType.IMAGE_JPEG_VALUE)
-    public Resource display() {
-        byte[] image = backgroundImageService.display();
+    @GetMapping(value = "/home-background-image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public Resource displayHomeImage() {
+        byte[] image = backgroundImageService.displayHomeImage();
+        return new ByteArrayResource(image);
+    }
+    @ResponseBody
+    @GetMapping(value = "/roll-background-image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public Resource displayRollImage() {
+        byte[] image = backgroundImageService.displayRollingImage();
         return new ByteArrayResource(image);
     }
 }

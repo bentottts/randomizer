@@ -100,8 +100,6 @@ public class CSVUtil {
                 //to skip the header
                 String[] headers = csvReader.readNext();
             }
-
-
             while ((nextRecord = csvReader.readNext()) != null) {
                 candidates.add(Candidate.builder()
                         .employeeId(StringUtils.isBlank(nextRecord[0]) ? "" : nextRecord[0])
@@ -109,7 +107,6 @@ public class CSVUtil {
                         .lastName(StringUtils.isBlank(nextRecord[2]) ? "" : nextRecord[2])
                         .build());
             }
-
             log.info("Read Candidates: {}", candidates);
         } catch (IOException | CsvException e) {
             e.printStackTrace();

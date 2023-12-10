@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
@@ -77,7 +77,7 @@
     </style>
 
 </head>
-<body th:style="'background-image:url(' + @{/background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/home-background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
 <nav>
     <div class="heading">
@@ -87,16 +87,8 @@
         <li><a th:href="@{/}">HOME</a></li>
         <li><a th:href="@{/roll}" target="_blank">ROLL</a></li>
         <li><a th:href="@{/scanQrCode}" target="_blank">QR SCANNER</a></li>
+        <li><a th:href="@{/participants/all}" target="_blank">PARTICIPANTS</a></li>
     </ul>
-
 </nav>
-<!--<nav>-->
-<!--    <ul style="background-color: dimgray">-->
-<!--        <li><a th:href="@{/}">Dashboard</a></li>-->
-<!--        <li><a th:href="@{/roll}" target="_blank">Roll</a></li>-->
-<!--        <li><a th:href="@{/scanQrCode}" target="_blank">QR Scanner</a></li>-->
-<!--    </ul>-->
-<!--</nav>-->
-
 </body>
 </html>

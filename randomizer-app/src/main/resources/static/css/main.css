@@ -33,15 +33,15 @@ body #roll {
   padding: 0.45em 2em;
   border-radius: 3em;
   transition: 400ms ease-in-out;
-  width: 20%;
+  width: 28%;
 }
 
 body #clear {
   display: inline-block;
   color: white;
-  background-color: #372f1f;
+  background-color: green;
   text-decoration: none;
-  font-size: 3rem;
+  font-size: 2rem;
   border: 5px solid white;
   padding: 0.45em 2em;
   border-radius: 3em;
@@ -52,9 +52,9 @@ body #clear {
 body #remove {
   display: inline-block;
   color: white;
-  background-color: #870d04;
+  background-color: orangered;
   text-decoration: none;
-  font-size: 3rem;
+  font-size: 2rem;
   border: 5px solid white;
   padding: 0.45em 2em;
   border-radius: 3em;
@@ -74,8 +74,11 @@ body #names {
 }
 
 body #winner {
-  font-size: 8.5rem;
-  width: 100%
+  font-size: 6.5rem;
+  font-family: "Century", sans-serif;
+  font-weight: bold;
+  width: 100%;
+  background-color: gold;
 }
 
 body #winner span {
