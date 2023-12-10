@@ -78,6 +78,8 @@ body #winner {
   font-family: "Century", sans-serif;
   font-weight: bold;
   width: 100%;
+  height: 280px;
+  color: #253241;
   background-color: gold;
 }
 

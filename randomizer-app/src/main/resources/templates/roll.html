@@ -11,10 +11,9 @@
 <body th:style="'background-image:url(' + @{/roll-background-image} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div class="wrapper">
     <a href="#" id="roll">* START *</a>
-    <div style="background-color: gold;" id="names"></div>
-    <div style="-webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);" id="winner"></div>
-    <br/><br/>
-    <div><a href="#" id="remove"><i class="fa fa-close" al></i></a> &nbsp; <a href="#" id="clear"><i
+    <div style="background-color: gold; color: #253241;" id="names"></div>
+    <div style="-webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);" id="winner"></div>
+    <div><a href="#" id="remove"><i class="fa fa-close"></i></a> &nbsp; <a href="#" id="clear"><i
             class="fa-spin fa fa-refresh"></i></a></div>
 </div>
 
@@ -27,7 +26,8 @@
             rollClick();
             clearForm();
             removeForm();
-
+            //
+            $("#winner").hide();
             $("#remove").hide();
             $("#clear").hide();
         });
@@ -47,7 +47,10 @@
         /*]]>*/
 
         function randomName() {
-            const rand = Math.floor(Math.random() * entrantsCount);
+            //update when removed button triggered
+            winningCount = (entrants.length > 120) ? (entrants.length - 100) : 0;
+            //
+            const rand = Math.floor(Math.random() * entrants.length);
             myCandidateObj = entrants[rand];
             winnerCandidate = myCandidateObj.firstName.toUpperCase() + " " + myCandidateObj.lastName.toUpperCase();
             //
@@ -59,6 +62,7 @@
 
         function rollClick() {
             $("#roll").on("click", function (e) {
+                console.log("New Count: " + entrants.length);
                 $(this).hide();
                 $("#clear").hide();
                 $("#remove").hide();
@@ -67,7 +71,7 @@
                 setDeceleratingTimeout(
                     function () {
                         randomName();
-                    }, 1, entrantsCount
+                    }, 1, entrants.length
                 );
                 e.preventDefault();
             });
@@ -78,7 +82,7 @@
                 $(this).hide();
                 $("#names").hide();
                 $("#remove").hide();
-                $("#winner").text("");
+                $("#winner").hide();
                 $("#roll").show();
 
                 //get updated list
@@ -97,7 +101,7 @@
             $("#remove").on("click", function (e) {
                 $(this).hide();
                 $("#names").hide();
-                $("#winner").text("");
+                $("#winner").hide();
                 $("#roll").show();
                 $("#clear").hide();
 
@@ -108,12 +112,15 @@
         function setDeceleratingTimeout(callback, factor, times) {
             const internalCallback = (function (t, counter) {
                 return function () {
+                    //
+                    console.log("End Count: " + winningCount);
                     if (--t > winningCount) {
                         window.setTimeout(internalCallback, ++counter * factor);
                         callback();
-                        //console.log("Scanning: " + t);
+                        console.log("Scanning: " + t);
                     } else {
                         //show the winner
+                        $("#winner").show();
                         $("#names").hide();
                         $("#winner").html("<span>Congratulations!!!<br></span>" + winnerCandidate);
                         //$("#roll").show();
